@@ -17,9 +17,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" className="dark">
-			<body className={cn(inter.className, "overflow-hidden")}>
-				{children}
-			</body>
+			<body className={cn(inter.className)}>{children}</body>
 		</html>
 	);
 }
