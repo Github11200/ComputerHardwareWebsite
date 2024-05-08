@@ -34,8 +34,8 @@ export default function Home() {
 				Computer Hardware
 			</h1>
 			<div
-				className="border rounded-lg bg-card text-card-foreground shadow w-[80rem] gap-8 p-8 grid grid-cols-7
-			 auto-rows-max mx-auto mt-16"
+				className="border rounded-lg bg-card text-card-foreground shadow w-[80rem] gap-8 p-8 grid grid-cols-7 auto-rows-max
+		mx-auto mt-16"
 			>
 				<h2 className="text-4xl col-span-7 text-center font-semibold tracking-tight m-0 p-0">
 					Mother Board
