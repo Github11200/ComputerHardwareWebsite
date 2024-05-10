@@ -1,0 +1,14 @@
+.grid-container {
+    width: 700px; /* Adjust as needed */
+    padding: 10px;
+  }
+  
+  .grid-row {
+    display: flex;
+  }
+  
+  .grid-col {
+    width: 100px; /* Adjust as needed */
+    margin-right: 5px; /* Add spacing between columns */
+  }
+  
