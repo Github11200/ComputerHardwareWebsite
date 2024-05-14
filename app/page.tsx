@@ -1,4 +1,12 @@
 import * as React from "react";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { loadEnvConfig } from "@next/env";
+import { remark } from "remark";
+import html from "remark-html";
+import parse from "html-react-parser";
+
+const projectDir = process.cwd();
+loadEnvConfig(projectDir);
 
 import { Card } from "@/components/ui/card";
 import {
@@ -18,12 +26,28 @@ interface HardwareCardProps {
 	description: string;
 }
 
-function HardwareCard({
+async function promptGemini(prompt: string) {
+	// For text-only input, use the gemini-pro model
+	const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+
+	const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+
+	const result = await model.generateContent(prompt);
+	const response = await result.response;
+	const text = response.text();
+	const processed = (await remark().use(html).process(text)).toString();
+	console.log(processed);
+	return processed;
+}
+
+async function HardwareCard({
 	rowSpan,
 	colSpan,
 	name,
 	description,
 }: HardwareCardProps) {
+	const data = await promptGemini(`What is a ${name}? DO NOT INCLUDE LISTS.`);
+
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
@@ -35,12 +59,13 @@ function HardwareCard({
 					</h2>
 				</Card>
 			</DialogTrigger>
-			<DialogContent className="sm:max-w-[425px]">
+			<DialogContent>
 				<DialogHeader>
 					<DialogTitle>{name}</DialogTitle>
-					<DialogDescription>{description}</DialogDescription>
+					<DialogDescription color="#FFFFFF">
+						{parse(data)}
+					</DialogDescription>
 				</DialogHeader>
-				<div className="grid gap-4 py-4"></div>
 			</DialogContent>
 		</Dialog>
 	);
