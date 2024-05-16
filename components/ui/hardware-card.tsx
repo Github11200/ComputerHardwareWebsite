@@ -56,7 +56,9 @@ export default async function HardwareCard({
 	name,
 	description,
 }: HardwareCardProps) {
-	const data = await promptGemini(`What is a ${name}? DO NOT INCLUDE LISTS.`);
+	const data = await promptGemini(
+		`What is a ${name}? DO NOT INCLUDE LISTS OR MARKDOWN DATA JUST SIMPLE TEXT. Write about a paragraph of text.`
+	);
 
 	return (
 		<Dialog>
@@ -74,18 +76,21 @@ export default async function HardwareCard({
 					<DialogTitle>{name}</DialogTitle>
 				</DialogHeader>
 				<DialogDescription color="#FFFFFF">
-					{parse(data)}
+					{parse(data)}{" "}
 				</DialogDescription>
-				<Sheet>
-					<SheetTrigger>
-						<Button>Learn More</Button>
-					</SheetTrigger>
-					<SheetContent>
-						<SheetHeader>
-							<SheetTitle>Hello</SheetTitle>
-						</SheetHeader>
-					</SheetContent>
-				</Sheet>
+				<DialogFooter>
+					{" "}
+					<Sheet>
+						<SheetTrigger>
+							<Button>Learn More</Button>
+						</SheetTrigger>
+						<SheetContent>
+							<SheetHeader>
+								<SheetTitle>Hello</SheetTitle>
+							</SheetHeader>
+						</SheetContent>
+					</Sheet>
+				</DialogFooter>
 			</DialogContent>
 		</Dialog>
 	);
