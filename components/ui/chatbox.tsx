@@ -2,19 +2,10 @@
 
 import * as React from "react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import {
-	Dialog,
-	DialogContent,
-	DialogDescription,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
 import {
@@ -29,12 +20,7 @@ import { promptGemini } from "@/lib/utils";
 
 interface Message {
 	personOrComputer: "person" | "computer";
-	message:
-		| string
-		| Element
-		| Element[]
-		| React.JSX.Element
-		| React.JSX.Element[];
+	message: any;
 }
 
 interface ChatBoxProps {
@@ -56,7 +42,7 @@ export default function ChatBox({ name, initialAnswer }: ChatBoxProps) {
 
 	const [prompt, setPrompt] = useState<string>("");
 
-	const handleSubmit = (e) => {
+	const handleSubmit = (e: any) => {
 		e.preventDefault();
 		setMessages([
 			...messages,

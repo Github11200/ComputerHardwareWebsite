@@ -14,48 +14,17 @@ export default function Home() {
 				<h2 className="text-4xl col-span-7 text-center font-semibold tracking-tight m-0 p-0">
 					Mother Board
 				</h2>
-				<HardwareCard
-					rowSpan={4}
-					colSpan={3}
-					name="CPU"
-					description="aldsjflkasdjfkl;"
-				/>
-				<HardwareCard
-					rowSpan={5}
-					colSpan={1}
-					name="Heat Sink"
-					description="aldsjflkasdjfkl;"
-				/>
-				<HardwareCard
-					rowSpan={2}
-					colSpan={3}
-					name="Hard Drive / SSD"
-					description="aldsjflkasdjfkl;"
-				/>
-				<HardwareCard
-					rowSpan={2}
-					colSpan={3}
-					name="RAM"
-					description="aldsjflkasdjfkl;"
-				/>
+				<HardwareCard rowSpan={4} colSpan={3} name="CPU" />
+				<HardwareCard rowSpan={5} colSpan={1} name="Heat Sink" />
+				<HardwareCard rowSpan={2} colSpan={3} name="Hard Drive / SSD" />
+				<HardwareCard rowSpan={2} colSpan={3} name="RAM" />
 				<HardwareCard
 					rowSpan={1}
 					colSpan={3}
 					name="Power Supply / Battery"
-					description="aldsjflkasdjfkl;"
 				/>
-				<HardwareCard
-					rowSpan={1}
-					colSpan={3}
-					name="Expansion Slots"
-					description="aldsjflkasdjfkl;"
-				/>
-				<HardwareCard
-					rowSpan={1}
-					colSpan={7}
-					name="GPU"
-					description="aldsjflkasdjfkl;"
-				/>
+				<HardwareCard rowSpan={1} colSpan={3} name="Expansion Slots" />
+				<HardwareCard rowSpan={1} colSpan={7} name="GPU" />
 			</div>
 		</div>
 	);

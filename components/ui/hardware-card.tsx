@@ -1,9 +1,8 @@
+"use client";
+
 import * as React from "react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
 import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import {
 	Dialog,
 	DialogContent,
@@ -13,41 +12,35 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-
-import {
-	Sheet,
-	SheetContent,
-	SheetDescription,
-	SheetHeader,
-	SheetTitle,
-	SheetTrigger,
-} from "@/components/ui/sheet";
-import { promptGemini } from "@/lib/utils";
+import { useState } from "react";
 
 import ChatBox from "./chatbox";
+import { useEffect } from "react";
 
 interface HardwareCardProps {
 	rowSpan: number;
 	colSpan: number;
 	name: string;
-	description: string;
 }
 
-interface Message {
-	personOrComputer: "person" | "computer";
-	message: string | React.JSX.Element | React.JSX.Element[];
-}
-
-export default async function HardwareCard({
+export default function HardwareCard({
 	rowSpan,
 	colSpan,
 	name,
-	description,
 }: HardwareCardProps) {
-	const data = await promptGemini(
-		`What is a ${name}? DO NOT INCLUDE LISTS OR MARKDOWN DATA JUST SIMPLE TEXT. Write about a paragraph of text.`
-	);
+	const [data, setData] = useState<any>("Loading...");
+
+	useEffect(() => {
+		fetch("/api", {
+			method: "POST",
+			body: JSON.stringify({ prompt: `What is a ${name}?` }),
+		}).then((res) => {
+			res.text().then((test) => {
+				setData(JSON.parse(test).message[0].props.children);
+				console.log(data);
+			});
+		});
+	});
 
 	return (
 		<Dialog>
@@ -64,7 +57,7 @@ export default async function HardwareCard({
 				<DialogHeader>
 					<DialogTitle>{name}</DialogTitle>
 				</DialogHeader>
-				<DialogDescription color="#FFFFFF">{data} </DialogDescription>
+				<DialogDescription color="#FFFFFF">{data}</DialogDescription>
 				<DialogFooter>
 					{" "}
 					<ChatBox name={name} initialAnswer={data} />
