@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
 	const genAI = new GoogleGenerativeAI(api_key!);
 
 	const model = genAI.getGenerativeModel({
-		model: "gemini-pro",
+		model: "gemini-1.5-flash-latest",
 	});
 
 	const result = await model.generateContent(prompt);
@@ -20,9 +20,6 @@ export async function POST(request: NextRequest) {
 	const response = await result.response;
 
 	const text = response.text();
-	const processed = parse(
-		(await remark().use(html).process(text)).toString()
-	);
 
-	return NextResponse.json({ message: processed }, { status: 200 });
+	return NextResponse.json({ message: text }, { status: 200 });
 }
