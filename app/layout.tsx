@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Analytics } from "@vercel/analytics/react";
+import Head from "next/head";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,8 +20,14 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" className="dark">
-			<Analytics />
-			<body className={cn(inter.className)}>{children}</body>
+			<Head>
+				<link rel="icon" href="/circuit.svg" type="image/svg+xml" />
+				<title>ez</title>
+			</Head>
+			<body className={cn(inter.className)}>
+				{children}
+				<Analytics />
+			</body>
 		</html>
 	);
 }
