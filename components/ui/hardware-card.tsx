@@ -54,6 +54,9 @@ const getData = (prompt: string): Promise<string> => {
 		})
 		.then((text) => {
 			return JSON.parse(text).message;
+		})
+		.catch((err) => {
+			return `What did you do this time, ${err}`;
 		});
 };
 
