@@ -2,6 +2,7 @@
 
 import * as React from "react";
 
+import { ReloadIcon } from "@radix-ui/react-icons";
 import { Card } from "@/components/ui/card";
 import {
 	Dialog,
@@ -26,6 +27,8 @@ import { useRef } from "react";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
+
 import { useEffect } from "react";
 
 interface HardwareCardProps {
@@ -60,17 +63,13 @@ export default function HardwareCard({
 	name,
 }: HardwareCardProps) {
 	const fetchedData = useRef<boolean>(false);
-	const [disabled, setDisabled] = useState<boolean>(true);
+	const disabled = useRef<boolean>(true);
 	const [data, setData] = useState<any>("Loading...");
 	const [prompt, setPrompt] = useState<string>("");
 	const [messages, setMessages] = useState<Array<Message>>([
 		{
-			personOrComputer: "person",
-			message: `What is a ${name}?`,
-		},
-		{
 			personOrComputer: "computer",
-			message: data,
+			message: "Hi! How can I help you?",
 		},
 	]);
 
@@ -80,19 +79,12 @@ export default function HardwareCard({
 				`What is a ${name}? Send it in one message, not multiple. Write about 1 paragraph.`
 			).then((res) => {
 				setData(res);
-				setMessages([
-					...messages.slice(0, messages.length - 1),
-					{
-						personOrComputer: "computer",
-						message: res,
-					},
-				]);
 			});
 
 			fetchedData.current = true;
-			setDisabled(false);
+			disabled.current = false;
 		}
-	});
+	}, [name, messages]);
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
@@ -104,20 +96,20 @@ export default function HardwareCard({
 			},
 			{
 				personOrComputer: "computer",
-				message: "...",
+				message: <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />,
 			},
 		]);
 
-		getData(
-			`${prompt}. DO NOT GIVE ANY MARKDOWN, BOLD TEXT, ITALICS, OR LISTS.`
-		).then((res) => {
-			console.log(messages.slice(0, messages.length - 1));
-
+		getData(`${prompt} `).then((res) => {
 			setMessages([
-				...messages.slice(0, messages.length - 1),
+				...messages,
+				{
+					personOrComputer: "person",
+					message: prompt,
+				},
 				{
 					personOrComputer: "computer",
-					message: res,
+					message: `${res}`,
 				},
 			]);
 		});
@@ -144,10 +136,12 @@ export default function HardwareCard({
 				<DialogFooter>
 					{" "}
 					<Sheet>
-						<SheetTrigger disabled={disabled}>
-							<Button disabled={disabled}>Learn More</Button>
+						<SheetTrigger disabled={disabled.current}>
+							<Button disabled={disabled.current}>
+								Learn More
+							</Button>
 						</SheetTrigger>
-						<SheetContent className="w-[600px]">
+						<SheetContent className="min-w-[600px]">
 							<SheetHeader>
 								<SheetTitle>Chat</SheetTitle>
 							</SheetHeader>
@@ -155,7 +149,7 @@ export default function HardwareCard({
 								Here you can chat with your own chatbot to learn
 								more about a hardware component.
 							</SheetDescription>
-							<Card className="mt-2 h-[85%] p-3 overflow-y-scroll">
+							<ScrollArea className="mt-2 h-[85%] p-3 rounded-md border">
 								{messages.map((object, index) => {
 									return (
 										<div
@@ -179,10 +173,10 @@ export default function HardwareCard({
 										</div>
 									);
 								})}
-							</Card>
+							</ScrollArea>
 							<form
 								onSubmit={handleSubmit}
-								className="flex w-full max-w-sm items-center space-x-2 mt-3"
+								className="flex w-full min-w-max items-center space-x-2 mt-3"
 							>
 								<Input
 									type="text"
