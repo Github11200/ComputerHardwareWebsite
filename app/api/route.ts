@@ -6,7 +6,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
 	const api_key = process.env.API_KEY;
-	console.log(api_key);
 	const prompt: string = JSON.parse(await request.text()).prompt;
 
 	// For text-only input, use the gemini-pro model
