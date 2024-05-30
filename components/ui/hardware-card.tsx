@@ -30,6 +30,7 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 import { useEffect } from "react";
+import Markdown from "react-markdown";
 
 interface HardwareCardProps {
 	rowSpan: number;
@@ -39,7 +40,7 @@ interface HardwareCardProps {
 
 interface Message {
 	personOrComputer: "person" | "computer";
-	message: any;
+	message: string | React.ReactElement;
 }
 
 const getData = (prompt: string): Promise<string> => {
@@ -103,19 +104,21 @@ export default function HardwareCard({
 			},
 		]);
 
-		getData(`${prompt} `).then((res) => {
-			setMessages([
-				...messages,
-				{
-					personOrComputer: "person",
-					message: prompt,
-				},
-				{
-					personOrComputer: "computer",
-					message: `${res}`,
-				},
-			]);
-		});
+		getData(`${prompt}, do not include lists in your response.`).then(
+			(res) => {
+				setMessages([
+					...messages,
+					{
+						personOrComputer: "person",
+						message: prompt,
+					},
+					{
+						personOrComputer: "computer",
+						message: `${res}`,
+					},
+				]);
+			}
+		);
 
 		setPrompt("");
 	};
@@ -135,7 +138,9 @@ export default function HardwareCard({
 				<DialogHeader>
 					<DialogTitle>{name}</DialogTitle>
 				</DialogHeader>
-				<DialogDescription color="#FFFFFF">{data}</DialogDescription>
+				<DialogDescription color="#FFFFFF">
+					<Markdown>{data}</Markdown>
+				</DialogDescription>
 				<DialogFooter>
 					{" "}
 					<Sheet>
@@ -154,6 +159,8 @@ export default function HardwareCard({
 							</SheetDescription>
 							<ScrollArea className="mt-2 h-[85%] p-3 rounded-md border">
 								{messages.map((object, index) => {
+									const src = object.message;
+
 									return (
 										<div
 											key={index}
@@ -171,7 +178,11 @@ export default function HardwareCard({
 												)}
 											</Avatar>
 											<p className="text-sm">
-												{object.message}
+												{typeof src === "string" ? (
+													<Markdown>{src}</Markdown>
+												) : (
+													src
+												)}
 											</p>
 										</div>
 									);

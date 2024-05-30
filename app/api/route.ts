@@ -1,7 +1,4 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { remark } from "remark";
-import parse from "html-react-parser";
-import html from "remark-html";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {

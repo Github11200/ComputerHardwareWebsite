@@ -7,9 +7,14 @@ export default function Home() {
 			<h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-center">
 				Computer Hardware
 			</h1>
+			<p className="[&:not(:first-child)]:mt-6 w-[50%] mx-auto">
+				Try clicking on any of the boxes that you want to learn more
+				about, and then click on the learn more button to access a
+				chatbot where you can ask more questions.
+			</p>
 			<div
 				className="border rounded-lg bg-card text-card-foreground shadow w-[80rem] gap-8 p-8 grid grid-cols-7
-			 auto-rows-max mx-auto mt-16"
+			 auto-rows-max mx-auto mt-10"
 			>
 				<h2 className="text-4xl col-span-7 text-center font-semibold tracking-tight m-0 p-0">
 					Mother Board
