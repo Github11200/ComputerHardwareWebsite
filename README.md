@@ -1,4 +1,9 @@
 # Computer Hardware Website
+## 📸 Screenshots
+![image](https://github.com/Github11200/ComputerHardwareWebsite/assets/78944617/49f76ba5-d6d0-4c30-9d83-982d61d27721)
+![image](https://github.com/Github11200/ComputerHardwareWebsite/assets/78944617/ae48b946-8755-490b-8fed-be895a02f158)
+![image](https://github.com/Github11200/ComputerHardwareWebsite/assets/78944617/f1d2086e-59b7-4750-8217-14a2685cbbb4)
+
 ## 🛠️ Setup
 Prequesites for running the program:
   - PNPM
