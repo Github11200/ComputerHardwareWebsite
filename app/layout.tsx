@@ -20,10 +20,6 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" className="dark">
-			<Head>
-				<link rel="icon" href="/circuit.svg" type="image/svg+xml" />
-				<title>ez</title>
-			</Head>
 			<body className={cn(inter.className)}>
 				{children}
 				<Analytics />

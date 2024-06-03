@@ -1,5 +1,6 @@
 import * as React from "react";
 import HardwareCard from "@/components/ui/hardware-card";
+import Link from "next/link";
 
 export default function Home() {
 	return (
@@ -30,6 +31,17 @@ export default function Home() {
 				/>
 				<HardwareCard rowSpan={1} colSpan={3} name="Expansion Slots" />
 				<HardwareCard rowSpan={1} colSpan={7} name="GPU" />
+			</div>
+			<div className="mt-10">
+				<p className="leading-7 [&:not(:first-child)]:mt-6">
+					Made by{" "}
+					<Link
+						href={"https://github.com/Github11200"}
+						className="underline"
+					>
+						Jinay Patel
+					</Link>
+				</p>
 			</div>
 		</div>
 	);
